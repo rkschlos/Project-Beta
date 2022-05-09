@@ -8,3 +8,24 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+
+async function loadInventory() {
+  const manufacturerResponse = await fetch('http://localhost:8100/api/manufacturers/');
+
+  if (manufacturerResponse.ok) {
+    const manufacturerData = await manufacturerResponse.json();
+
+    root.render(
+      <React.StrictMode>
+        <App manufacturers={manufacturerData.manufacturers}/>
+      </React.StrictMode>
+    );
+
+    console.log('manufacturer data: ', manufacturerData)
+  } else {
+    console.error(manufacturerResponse);
+  }
+}
+
+loadInventory();
