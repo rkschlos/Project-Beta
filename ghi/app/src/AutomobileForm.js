@@ -7,7 +7,7 @@ class AutomobileForm extends React.Component {
       color: "",
       year: "",
       vin: "",
-      model: "",
+      model_id: "",
       models: []
     };
 
@@ -25,6 +25,7 @@ class AutomobileForm extends React.Component {
 
     if (response.ok) {
       const data = await response.json();
+      console.log(data)
       this.setState({ models: data.models });
     }
   }
@@ -51,7 +52,7 @@ class AutomobileForm extends React.Component {
         color: '',
         year: '',
         vin: '',
-        model: '',
+        model_id: '',
       });
     }
   }
@@ -73,7 +74,7 @@ class AutomobileForm extends React.Component {
 
   handleChangeModel(event) {
     const value = event.target.value;
-    this.setState({ model: value });
+    this.setState({ model_id: value });
   }
 
   render() {
@@ -96,11 +97,11 @@ class AutomobileForm extends React.Component {
                 <label htmlFor="vin">VIN #</label>
               </div>
               <div className="mb-3">
-                <select onChange={this.handleChangeModel} value={this.state.model} required name="model" id="model" className="form-select">
+                <select onChange={this.handleChangeModel} value={this.state.model_id} required name="model" id="model" className="form-select">
                   <option value="">Choose a make/model</option>
                   {this.state.models.map(model => {
                     return (
-                      <option key={model.id} value={model.href}>Make: {model.manufacturer.name} Model: {model.name}</option>
+                      <option key={model.href} value={model.id}>Make: {model.manufacturer.name} Model: {model.name}</option>
                     )
                   })}
                 </select>
