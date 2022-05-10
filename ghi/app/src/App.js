@@ -3,6 +3,8 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import ManufacturersList from './ManufacturersList';
 import ManufacturerForm from './ManufacturerForm';
+import AutomobilesList from './AutomobilesList';
+
 function App(props) {
   if (props.manufacturers === undefined) {
     return null;
@@ -16,6 +18,9 @@ function App(props) {
           <Route path="manufacturers">
             <Route index element={<ManufacturersList manufacturers={props.manufacturers} />}/>
             <Route path= "new" element={<ManufacturerForm />} />
+          </Route>
+          <Route path="automobiles">
+            <Route index element={<AutomobilesList autos={props.autos} />} />
           </Route>
         </Routes>
       </div>
