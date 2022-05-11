@@ -5,7 +5,16 @@ import json
 from common.json import ModelEncoder
 
 
-from .models import SalesPerson, Customer
+from .models import SalesPerson, Customer, AutomobileVO, SaleRecord
+
+class AutomobileVOEncoder(ModelEncoder):
+    model = AutomobileVO
+    properties = [
+        "import_href",
+        "color",
+        "year",
+        "vin",
+    ]
 
 class SalesPersonEncoder(ModelEncoder):
     model = SalesPerson
@@ -21,6 +30,21 @@ class CustomerEncoder(ModelEncoder):
         "address",
         "phone_number",
     ]
+
+class SaleRecordEncoder(ModelEncoder):
+    model = SaleRecord
+    properties = [
+        "sales_person",
+        "customer",
+        "sale_price",
+        "automobile",
+    ]
+    encoders = {
+        "sales_person": SalesPersonEncoder(),
+        "customer": CustomerEncoder(),
+        "automobile": AutomobileVOEncoder(),
+    }
+
 
 # Create your views here.
 @require_http_methods(["GET", "POST"])
@@ -57,4 +81,46 @@ def api_customers(request):
             safe=False,
         )
 
-
+@require_http_methods(["GET", "POST"])
+def api_salerecords(request):
+    if request.method == "GET":
+        salerecords = SaleRecord.objects.all()
+        return JsonResponse(
+            {"salerecords": salerecords},
+            encoder = SaleRecordEncoder,
+        )
+    else: #Post
+        # this is getting new post string and turning it into a dictionary named content
+        content = json.loads(request.body)
+        print (content)
+        try:
+            #to get the automobile property, get object with matching import_href, set that to automobile
+            automobile = AutomobileVO.objects.get(import_href=content["automobile"])
+            #then set the value of automobile to the key "automobile"
+            content["automobile"] = automobile
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid automobile id"}
+            )
+        try: 
+            #to get the salesperson, property, get object with matching employee number that was in post
+            salesperson = SalesPerson.objects.get(employee_number = content["salesperson"])
+            #set key "salesperson" to the value salesperson from above
+            content["salesperson"] = salesperson
+        except SalesPerson.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid employee number"}
+            )
+        try:
+            customer = Customer.objects.get(phone_number = content["customer"])
+            content["customer"]= customer
+        except Customer.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid customer phone number"}
+            )
+        salerecord = SaleRecord.objects.create(**content)
+        return JsonResponse(
+            salerecord, 
+            encoder = SaleRecordEncoder, 
+            safe=False,
+        )
