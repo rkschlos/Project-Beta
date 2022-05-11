@@ -28,6 +28,7 @@ class ServiceAppointment(models.Model):
 
     reason = models.TextField()
     is_vip = models.BooleanField(default=False)
+    finished = models.BooleanField(default=False)
 
     def __str__(self):
         return self.owner

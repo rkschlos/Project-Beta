@@ -30,6 +30,7 @@ class ServiceAppointmentEncoder(ModelEncoder):
         "reason",
         "id",
         "is_vip",
+        "finished",
     ]
     encoders = {
     "vin": AutomobileVOEncoder()
@@ -97,8 +98,31 @@ def api_appointments_list(request):
                 {"message": "Invalid employee id"}, status=404
             )
 
+        # if content["finished"] == True:
+        #     content["finished"] = True
+        # else:
+        #     content["finished"] = False
+
         content["is_vip"] = AutomobileVO.objects.filter(vin=content["vin"]).exists()
         appointment = ServiceAppointment.objects.create(**content)
         return JsonResponse(
             appointment, encoder=ServiceAppointmentEncoder, safe=False
+        )
+
+
+@require_http_methods(["DELETE", "PUT"])
+def api_show_appointment(request, pk):
+    if request.method == "DELETE":
+        count, _ = ServiceAppointment.objects.filter(id=pk).delete()
+        return JsonResponse(
+            {"deleted": count > 0}
+        )
+    else:
+        content = json.loads(request.body)
+        ServiceAppointment.objects.filter(id=pk).update(**content)
+        service = ServiceAppointment.objects.get(id=pk)
+        return JsonResponse(
+            service,
+            encoder=ServiceAppointmentEncoder,
+            safe=False
         )
