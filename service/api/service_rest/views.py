@@ -26,8 +26,7 @@ class ServiceAppointmentEncoder(ModelEncoder):
     model = ServiceAppointment
     properties = [
         "owner",
-        "date",
-        # "technician",
+        "date_time",
         "reason",
         "id",
     ]
@@ -87,23 +86,28 @@ def api_appointments_list(request):
             encoder=ServiceAppointmentEncoder,
         )
     else:
+        content = json.loads(request.body)
         try:
-            content = json.loads(request.body)
-            owner = content["owner"]
-            auto = ServiceAppointment.objects.get(pk=owner)
-            content["auto"] = auto
-            auto = ServiceAppointment.objects.create(**content)
+            technician_id = content["technician"]
+            technician = Technician.objects.get(id=technician_id)
+            content["technician"] = technician
+        except Technician.DoesNotExist:
             return JsonResponse(
-                auto,
-                encoder=ServiceAppointmentEncoder,
-                safe=False,
+                {"message": "Invalid employee id"}, status=404
             )
+
         except:
             response = JsonResponse(
                 {"message": "Could not create the appointment"}
             )
             response.status_code = 400
             return response
+
+        appointment = ServiceAppointment.objects.create(**content)
+        return JsonResponse(
+            appointment, encoder=ServiceAppointmentEncoder, safe=False
+        )
+
 
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_appointments(request, pk):

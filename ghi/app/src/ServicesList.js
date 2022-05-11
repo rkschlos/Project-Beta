@@ -16,7 +16,7 @@ function ServicesList(props) {
                 <tr key={appointment.id}>
                   <td>{ appointment.owner }</td>
                   <td>{ appointment.vin }</td>
-                  <td>{ appointment.date }</td>
+                  <td>{ appointment.date_time }</td>
                   <td>{ appointment.reason }</td>
                   <td>{ appointment.technician }</td>
                 </tr>

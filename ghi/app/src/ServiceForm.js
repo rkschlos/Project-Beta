@@ -6,7 +6,7 @@ class ServiceForm extends React.Component {
     this.state = {
       owner: "",
       vin: "",
-      date: "",
+      date_time: "",
       technician: "",
       technicians: [],
       reason: "",
@@ -16,7 +16,7 @@ class ServiceForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeOwner = this.handleChangeOwner.bind(this);
     this.handleChangeVin = this.handleChangeVin.bind(this);
-    this.handleChangeDate = this.handleChangeDate.bind(this);
+    this.handleChangeDateTime = this.handleChangeDateTime.bind(this);
     this.handleChangeTechnician = this.handleChangeTechnician.bind(this);
     this.handleChangeReason = this.handleChangeReason.bind(this);
   }
@@ -36,6 +36,7 @@ class ServiceForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = {...this.state};
+    delete data.technicians
 
 
     const serviceUrl = 'http://localhost:8080/api/service/';
@@ -54,7 +55,7 @@ class ServiceForm extends React.Component {
       this.setState({
         owner: '',
         vin: '',
-        date: '',
+        date_time: '',
         technician: '',
         reason: '',
       });
@@ -71,9 +72,9 @@ class ServiceForm extends React.Component {
     this.setState({ vin: value });
   }
 
-  handleChangeDate(event) {
+  handleChangeDateTime(event) {
     const value = event.target.value;
-    this.setState({ date: value });
+    this.setState({ date_time: value });
   }
 
   handleChangeTechnician(event) {
@@ -102,8 +103,8 @@ class ServiceForm extends React.Component {
                 <label htmlFor="vin">VIN #</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleChangeDate} value={this.state.date} placeholder="Date" required type="datetime-local" name="date" id="date" className="form-control" />
-                <label htmlFor="date">Date/Time</label>
+                <input onChange={this.handleChangeDateTime} value={this.state.date_time} placeholder="Date/Time" required type="datetime-local" name="date_time" id="date_time" className="form-control" />
+                <label htmlFor="date_time">Date/Time</label>
               </div>
               <div className="mb-3">
                 <select onChange={this.handleChangeTechnician} value={this.state.technician} required name="technician" id="technician" className="form-select">

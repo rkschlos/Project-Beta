@@ -18,12 +18,12 @@ class Technician(models.Model):
 class ServiceAppointment(models.Model):
     owner = models.CharField(max_length=200)
     vin = models.CharField(max_length=17, unique=True)
-    date = models.DateTimeField()
+    date_time = models.DateTimeField()
 
     technician = models.ForeignKey(
         Technician,
         related_name="appointments",
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
     )
 
     reason = models.TextField()
