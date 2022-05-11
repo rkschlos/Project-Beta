@@ -16,13 +16,16 @@ async function loadInventory() {
   const automobileResponse = await fetch('http://localhost:8100/api/automobiles/');
   const salespersonResponse = await fetch('http://localhost:8090/api/salespersons/');
   const technicianResponse = await fetch('http://localhost:8080/api/technicians/');
+  const customerResponse = await fetch('http://localhost:8090/api/customers/');
 
-  if (manufacturerResponse.ok && modelResponse.ok && automobileResponse.ok && salespersonResponse.ok && technicianResponse.ok) {
+  if (manufacturerResponse.ok && modelResponse.ok && automobileResponse.ok 
+    && salespersonResponse.ok && technicianResponse.ok && customerResponse.ok) {
     const manufacturerData = await manufacturerResponse.json();
     const modelData = await modelResponse.json();
     const automobileData = await automobileResponse.json();
     const salespersonData = await salespersonResponse.json();
     const technicianData = await technicianResponse.json();
+    const customerData = await customerResponse.json();
 
     root.render(
       <React.StrictMode>
@@ -32,6 +35,7 @@ async function loadInventory() {
           autos={automobileData.autos} 
           salespersons = {salespersonData.salespersons} 
           technicians = {technicianData.technicians}
+          customers = {customerData.customers}
         />
       </React.StrictMode>
     );
@@ -42,6 +46,7 @@ async function loadInventory() {
     console.error(automobileResponse);
     console.error(salespersonResponse);
     console.error(technicianResponse);
+    console.error(customerResponse);
   }
 }
 loadInventory();
