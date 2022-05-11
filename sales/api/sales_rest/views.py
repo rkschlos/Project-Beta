@@ -34,13 +34,13 @@ class CustomerEncoder(ModelEncoder):
 class SaleRecordEncoder(ModelEncoder):
     model = SaleRecord
     properties = [
-        "sales_person",
+        "salesperson",
         "customer",
         "sale_price",
         "automobile",
     ]
     encoders = {
-        "sales_person": SalesPersonEncoder(),
+        "salesperson": SalesPersonEncoder(),
         "customer": CustomerEncoder(),
         "automobile": AutomobileVOEncoder(),
     }
@@ -92,7 +92,6 @@ def api_salerecords(request):
     else: #Post
         # this is getting new post string and turning it into a dictionary named content
         content = json.loads(request.body)
-        print (content)
         try:
             #to get the automobile property, get object with matching import_href, set that to automobile
             automobile = AutomobileVO.objects.get(import_href=content["automobile"])

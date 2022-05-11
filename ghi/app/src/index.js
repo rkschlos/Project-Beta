@@ -18,17 +18,63 @@ async function loadInventory() {
   const technicianResponse = await fetch('http://localhost:8080/api/technicians/');
   const serviceResponse = await fetch('http://localhost:8080/api/service/');
   const customerResponse = await fetch('http://localhost:8090/api/customers/');
+  const salerecordResponse = await fetch('http://localhost:8090/api/salerecords/');
+  let manufacturerData;
+  let modelData;
+  let automobileData;
+  let salespersonData;
+  let technicianData;
+  let serviceData;
+  let customerData;
+  let salerecordData;
 
-  if (manufacturerResponse.ok && modelResponse.ok && automobileResponse.ok 
-    && salespersonResponse.ok && technicianResponse.ok && serviceResponse.ok && 
-    customerResponse.ok) {
-    const manufacturerData = await manufacturerResponse.json();
-    const modelData = await modelResponse.json();
-    const automobileData = await automobileResponse.json();
-    const salespersonData = await salespersonResponse.json();
-    const technicianData = await technicianResponse.json();
-    const serviceData = await serviceResponse.json();
-    const customerData = await customerResponse.json();
+  if (manufacturerResponse.ok){
+    manufacturerData = await manufacturerResponse.json();
+  } else {
+    console.error(manufacturerResponse);
+  }
+
+  if (modelResponse.ok) {
+    modelData = await modelResponse.json();
+  } else {
+    console.error(modelResponse);
+  }
+
+  if (automobileResponse.ok){
+    automobileData = await automobileResponse.json();
+  } else {
+    console.error(automobileResponse);
+  }
+
+  if (salespersonResponse.ok) {
+    salespersonData = await salespersonResponse.json();
+  } else {
+    console.error(salespersonResponse);
+  }
+
+  if (technicianResponse.ok) {
+    technicianData = await technicianResponse.json();
+  } else {
+    console.error(technicianResponse);
+  }
+
+  if (serviceResponse.ok) {
+    serviceData = await serviceResponse.json();
+  } else {
+    console.error(serviceResponse);
+  }
+
+  if (customerResponse.ok) {
+    customerData = await customerResponse.json();
+  } else {
+    console.error(customerResponse);
+  }
+
+  if (salerecordResponse.ok) {
+    salerecordData = await salerecordResponse.json();
+  } else {
+    console.error(salerecordResponse);
+  }
 
     root.render(
       <React.StrictMode>
@@ -40,18 +86,11 @@ async function loadInventory() {
           technicians = {technicianData.technicians}
           appointments = {serviceData.appointments}
           customers = {customerData.customers}
+          salerecords = {salerecordData.salerecords}
         />
       </React.StrictMode>
     );
 
-  } else {
-    console.error(manufacturerResponse);
-    console.error(modelResponse);
-    console.error(automobileResponse);
-    console.error(salespersonResponse);
-    console.error(technicianResponse);
-    console.error(serviceResponse);
-    console.error(customerResponse);
-  }
+  
 }
 loadInventory();
