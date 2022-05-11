@@ -8,10 +8,10 @@ class SalesPerson(models.Model):
     def __str__(self):
         return self.name
 
-# class PotentialCustomer(models.Model):
-#     name = models.CharField(max_length=100)
-#     address = models.TextField()
-#     phone_number = models.PositiveSmallIntegerField(unique=True)
+class Customer(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.TextField()
+    phone_number = models.CharField(max_length=12)
 
 # class AutomobileVO(models.Model):
 #     color = models.CharField(max_length=50)

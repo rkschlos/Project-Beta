@@ -5,13 +5,21 @@ import json
 from common.json import ModelEncoder
 
 
-from .models import SalesPerson
+from .models import SalesPerson, Customer
 
 class SalesPersonEncoder(ModelEncoder):
     model = SalesPerson
     properties = [
         "name", 
         "employee_number",
+    ]
+
+class CustomerEncoder(ModelEncoder):
+    model = Customer
+    properties = [
+        "name",
+        "address",
+        "phone_number",
     ]
 
 # Create your views here.
@@ -32,4 +40,21 @@ def api_salespersons(request):
             safe=False,
         )
         
+@require_http_methods(["GET", "POST"])
+def api_customers(request):
+    if request.method == "GET":
+        customers = Customer.objects.all()
+        return JsonResponse(
+            {"customers": customers},
+            encoder = CustomerEncoder,
+        )
+    else: #POST
+        content = json.loads(request.body)
+        customer = Customer.objects.create(**content)
+        return JsonResponse(
+            customer,
+            encoder = CustomerEncoder,
+            safe=False,
+        )
+
 
