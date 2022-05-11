@@ -29,6 +29,7 @@ class ServiceAppointmentEncoder(ModelEncoder):
         "date_time",
         "reason",
         "id",
+        "is_vip",
     ]
     encoders = {
     "vin": AutomobileVOEncoder()
@@ -75,8 +76,6 @@ def api_delete_technician(request, pk):
         return JsonResponse({"message": "Does not exist"})
 
 
-
-
 @require_http_methods(["GET", "POST"])
 def api_appointments_list(request):
     if request.method == "GET":
@@ -85,70 +84,21 @@ def api_appointments_list(request):
             {"appointments": appointments},
             encoder=ServiceAppointmentEncoder,
         )
+        
     else:
         content = json.loads(request.body)
         try:
             technician_id = content["technician"]
             technician = Technician.objects.get(id=technician_id)
             content["technician"] = technician
+
         except Technician.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid employee id"}, status=404
             )
 
-        except:
-            response = JsonResponse(
-                {"message": "Could not create the appointment"}
-            )
-            response.status_code = 400
-            return response
-
+        content["is_vip"] = AutomobileVO.objects.filter(vin=content["vin"]).exists()
         appointment = ServiceAppointment.objects.create(**content)
         return JsonResponse(
             appointment, encoder=ServiceAppointmentEncoder, safe=False
         )
-
-
-@require_http_methods(["DELETE", "GET", "PUT"])
-def api_appointments(request, pk):
-    if request.method == "GET":
-        try:
-            appointment = ServiceAppointment.objects.get(id=pk)
-            return JsonResponse(
-                appointment,
-                encoder=ServiceAppointmentEncoder,
-                safe=False
-            )
-        except ServiceAppointment.DoesNotExist:
-            response = JsonResponse({"message": "Does not exist"})
-            response.status_code = 404
-            return response
-    elif request.method == "DELETE":
-        try:
-            appointment = ServiceAppointment.objects.get(id=pk)
-            appointment.delete()
-            return JsonResponse(
-                appointment,
-                encoder=ServiceAppointmentEncoder,
-                safe=False,
-            )
-        except ServiceAppointment.DoesNotExist:
-            return JsonResponse({"message": "Does not exist"})
-    else: # PUT
-        try:
-            content = json.loads(request.body)
-            appointment = ServiceAppointment.objects.get(id=pk)
-            props = ["owner", "vin", "date", "technician", "reason"]
-            for prop in props:
-                if prop in content:
-                    setattr(appointment, prop, content[prop])
-            appointment.save()
-            return JsonResponse(
-                appointment,
-                encoder=ServiceAppointmentEncoder,
-                safe=False,
-            )
-        except ServiceAppointment.DoesNotExist:
-            response = JsonResponse({"message": "Does not exist"})
-            response.status_code = 404
-            return response

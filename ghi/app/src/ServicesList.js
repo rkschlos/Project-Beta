@@ -6,8 +6,9 @@ function ServicesList(props) {
               <th>Name</th>
               <th>VIN #</th>
               <th>Date/Time</th>
-              <th>Reason</th>
               <th>Technician</th>
+              <th>Reason</th>
+              <th>VIP</th>
             </tr>
           </thead>
           <tbody>
@@ -17,8 +18,9 @@ function ServicesList(props) {
                   <td>{ appointment.owner }</td>
                   <td>{ appointment.vin }</td>
                   <td>{ appointment.date_time }</td>
-                  <td>{ appointment.reason }</td>
                   <td>{ appointment.technician }</td>
+                  <td>{ appointment.reason }</td>
+                  <td>{ appointment.is_vip ? "Yes" : "No" } </td>
                 </tr>
               );
             })}
