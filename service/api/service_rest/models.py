@@ -10,7 +10,7 @@ class AutomobileVO(models.Model):
 
 class Technician(models.Model):
     name = models.CharField(max_length=200)
-    employee_number = models.CharField(max_length=7)
+    employee_number = models.CharField(max_length=7, unique=True)
 
     def __str__(self):
         return self.name

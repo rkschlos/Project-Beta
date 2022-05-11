@@ -12,6 +12,7 @@ class TechnicianEncoder(ModelEncoder):
     properties = [
         "name",
         "employee_number",
+        "id",
     ]
 
 class AutomobileVOEncoder(ModelEncoder):
@@ -25,16 +26,17 @@ class ServiceAppointmentEncoder(ModelEncoder):
     model = ServiceAppointment
     properties = [
         "owner",
-        "vin",
-        "technician",
+        "date",
+        # "technician",
         "reason",
+        "id",
     ]
     encoders = {
     "vin": AutomobileVOEncoder()
     }
 
     def get_extra_data(self, o):
-        return {"vin": o.autos.vin}
+        return {"vin": o.vin, "technician": o.technician.name}
 
 @require_http_methods(["GET", "POST"])
 def api_technicians(request):
@@ -59,6 +61,21 @@ def api_technicians(request):
             )
             response.status_code = 400
             return response
+
+@require_http_methods(["DELETE"])
+def api_delete_technician(request, pk):
+    try:
+        technician = Technician.objects.get(id=pk)
+        technician.delete()
+        return JsonResponse(
+          technician,
+          encoder=TechnicianEncoder,
+          safe=False,
+        )
+    except Technician.DoesNotExist:
+        return JsonResponse({"message": "Does not exist"})
+
+
 
 
 @require_http_methods(["GET", "POST"])
