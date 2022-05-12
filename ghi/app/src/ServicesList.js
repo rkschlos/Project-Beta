@@ -54,15 +54,19 @@ class ServicesList extends React.Component {
 
 render() {
     return (
-        <table className="table table-warning table-hover">
+        <>
+        <h1></h1>
+        <h1>Service Appointments</h1>
+        <table className="table table-dark table-hover caption-top">
+            <caption>*** = Customer receives VIP treatment</caption>
           <thead>
             <tr>
-              <th>Name</th>
+              <th>VIP</th>
+              <th>Customer Name</th>
               <th>VIN #</th>
               <th>Date/Time</th>
               <th>Technician</th>
               <th>Reason</th>
-              <th>VIP</th>
               <th></th>
               <th></th>
             </tr>
@@ -79,19 +83,20 @@ render() {
                 }
               return (
                 <tr className={finished} key={appointment.id}>
+                  <td>{ appointment.is_vip ? "***" : "" } </td>
                   <td>{ appointment.owner }</td>
                   <td>{ appointment.vin }</td>
                   <td>{ date } { time } { timeZone }</td>
                   <td>{ appointment.technician }</td>
                   <td>{ appointment.reason }</td>
-                  <td>{ appointment.is_vip ? "Yes" : "No" } </td>
-                  <td><button onClick={()=>this.handleCancel(appointment.id)} to="">Cancel</button></td>
-                  <td><button onClick={()=>this.handleFinished(appointment.id)} to="">Finished</button></td>
+                  <td><button onClick={()=>this.handleCancel(appointment.id)} to="" className="btn btn-outline-danger">Cancel</button></td>
+                  <td><button onClick={()=>this.handleFinished(appointment.id)} to="" className="btn btn-outline-success">Complete</button></td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+        </>
       );
     }
 }

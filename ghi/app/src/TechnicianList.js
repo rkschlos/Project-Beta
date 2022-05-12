@@ -1,6 +1,8 @@
 function TechnicianList(props) {
     return (
-        <table className="table table-warning table-hover">
+        <>
+        <h1>Technicians</h1>
+        <table className="table table-dark table-hover">
           <thead>
             <tr>
               <th>Name</th>
@@ -9,8 +11,8 @@ function TechnicianList(props) {
           </thead>
           <tbody>
             {props.technicians.map(technician => {
-              return (
-                <tr key={technician.id}>
+                return (
+                    <tr key={technician.id}>
                   <td>{ technician.name }</td>
                   <td>{ technician.employee_number }</td>
                 </tr>
@@ -18,6 +20,7 @@ function TechnicianList(props) {
             })}
           </tbody>
         </table>
+        </>
       );
     }
     

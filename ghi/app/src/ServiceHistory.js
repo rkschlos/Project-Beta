@@ -44,23 +44,25 @@ class ServiceHistory extends React.Component {
 
 render() {
     return (
+        <>
+        <h1></h1>
         <form className="form-inline" onSubmit={this.handleSearch} id="search-vin">
             <div className="input-group mb-3">
-                <input onChange={this.handleChange} value={this.state.search} type="text" placeholder="Search VIN # for Service History" required name="search" id="search" className="form-control" />
-                <label htmlFor="vin"></label>
-                <div className="input-group-prepend">
-                <button onClick={this.handleSearch} className="btn btn-outline-success" type="submit">Search</button>
-                </div>
+                <input onChange={this.handleChange} value={this.state.search} type="text" placeholder="Enter VIN #" required name="search" id="search" className="form-control" />
+                <label htmlFor="search"></label>
+                <div className="input-group-prepend"></div>
             </div>
-        <table className="table table-warning table-hover">
+            <h3>Service History</h3>
+        <table className="table table-dark table-hover caption">
+        <caption>*** = Customer receives VIP treatment</caption>
           <thead>
             <tr>
-              <th>Name</th>
+              <th>VIP</th>
+              <th>Customer Name</th>
               <th>VIN #</th>
               <th>Date/Time</th>
               <th>Technician</th>
               <th>Reason</th>
-              <th>VIP</th>
             </tr>
           </thead>
           <tbody>
@@ -75,18 +77,19 @@ render() {
                 }
               return (
                 <tr className={finished} key={appointment.id}>
+                  <td>{ appointment.is_vip ? "***" : "" } </td>
                   <td>{ appointment.owner }</td>
                   <td>{ appointment.vin }</td>
                   <td>{ date } { time } { timeZone }</td>
                   <td>{ appointment.technician }</td>
                   <td>{ appointment.reason }</td>
-                  <td>{ appointment.is_vip ? "Yes" : "No" } </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
         </form>
+        </>
       );
     }
 }

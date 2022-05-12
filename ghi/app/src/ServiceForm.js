@@ -120,7 +120,7 @@ class ServiceForm extends React.Component {
                 <input onChange={this.handleChangeReason} value={this.state.reason} placeholder="Reason" required type="text" name="reason" id="reason" className="form-control" />
                 <label htmlFor="reason">Reason for service</label>
               </div>
-              <button onClick={this.handleSubmit} className="btn btn-primary">Add</button>
+              <button onClick={this.handleSubmit} className="btn btn-success">Add</button>
             </form>
           </div>
         </div>
