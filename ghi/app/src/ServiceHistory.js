@@ -1,12 +1,22 @@
 import React from 'react';
 
-class ServicesList extends React.Component {
+class ServiceHistory extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
         appointments: [],
+        search: '',
       };
+      this.handleChange = this.handleChange.bind(this);
     }
+
+    handleChange(event) {
+        const newState = {}
+        newState[event.target.id] = event.target.value;
+        this.setState(newState)
+    }
+
+
   
     async componentDidMount() {
       const url = 'http://localhost:8080/api/service/';
@@ -19,41 +29,29 @@ class ServicesList extends React.Component {
         this.setState({ appointments: data.appointments });
       }
     }
-  
-    async handleCancel(id) {
-      const cancelUrl = `http://localhost:8080/api/service/${id}/`;
-      const fetchConfig = {
-        method: "delete",
-      };
 
-      const response = await fetch(cancelUrl, fetchConfig);
-      console.log(response)
-      if (response.ok) {
-        console.log("deleted");
-        window.location.reload();
-      }
-    };
-
-    async handleFinished(id) {
-        const finishedUrl = `http://localhost:8080/api/service/${id}/`;
+    async handleSearch(event) {
+        event.preventDefault();
+    
+        const searchUrl = `http://localhost:8080/api/service/`;
         const fetchConfig = {
-          method: "put",
-          body: JSON.stringify({finished: true}),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          method: "get",
         };
-  
-        const response = await fetch(finishedUrl, fetchConfig);
+
+        const response = await fetch(searchUrl, fetchConfig);
         console.log(response)
-        if (response.ok) {
-          console.log("updated");
-          window.location.reload();
         }
-      };
 
 render() {
     return (
+        <form className="form-inline" onSubmit={this.handleSearch} id="search-vin">
+            <div className="input-group mb-3">
+                <input onChange={this.handleChange} value={this.state.search} type="text" placeholder="Search VIN # for Service History" required name="search" id="search" className="form-control" />
+                <label htmlFor="vin"></label>
+                <div className="input-group-prepend">
+                <button onClick={this.handleSearch} className="btn btn-outline-success" type="submit">Search</button>
+                </div>
+            </div>
         <table className="table table-warning table-hover">
           <thead>
             <tr>
@@ -63,8 +61,6 @@ render() {
               <th>Technician</th>
               <th>Reason</th>
               <th>VIP</th>
-              <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -73,9 +69,9 @@ render() {
                 const date = new Date(appointment.date_time).toLocaleDateString();
                 const time = new Date(appointment.date_time).toLocaleTimeString([], {timeStyle: 'short'});
 
-                let finished = ''
-                if (appointment.finished === true) {
-                    finished = 'd-none'
+                let finished = ""
+                if (appointment.vin !== this.state.search) {
+                    finished = "d-none"
                 }
               return (
                 <tr className={finished} key={appointment.id}>
@@ -85,15 +81,14 @@ render() {
                   <td>{ appointment.technician }</td>
                   <td>{ appointment.reason }</td>
                   <td>{ appointment.is_vip ? "Yes" : "No" } </td>
-                  <td><button onClick={()=>this.handleCancel(appointment.id)} to="">Cancel</button></td>
-                  <td><button onClick={()=>this.handleFinished(appointment.id)} to="">Finished</button></td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+        </form>
       );
     }
 }
 
-export default ServicesList;
+export default ServiceHistory;
