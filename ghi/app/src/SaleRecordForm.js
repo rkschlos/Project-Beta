@@ -16,6 +16,7 @@ class SaleRecordForm extends React.Component {
         this.handleCustomerChange= this.handleCustomerChange.bind(this);
         this.handleAutomobileChange = this.handleAutomobileChange.bind(this);
         this.handleSalePriceChange = this.handleSalePriceChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     async componentDidMount() {
@@ -40,7 +41,7 @@ class SaleRecordForm extends React.Component {
         if (automobilesResponse.ok) {
             const automobilesData = await automobilesResponse.json();
             console.log("automobilesData", automobilesData);
-            this.setState({ automobiles: automobilesData.automobiles })
+            this.setState({ automobiles: automobilesData.autos })
         }
     }
 
@@ -65,12 +66,13 @@ class SaleRecordForm extends React.Component {
             const newSalesrecord = await response.json();
             console.log(newSalesrecord);
 
-            this.setState ({
+            const cleared = {
                 salesperson: "",
                 customer: "",
                 automobile: "",
                 sale_price: ""
-            });
+            };
+            this.setState(cleared);
         }
     }
 
@@ -100,17 +102,13 @@ class SaleRecordForm extends React.Component {
             <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-
                     <h1>Create a new sale record!</h1>
-
                     <form onSubmit={this.handleSubmit} id="create-salerecord-form">
-
                         <div className="form-floating mb-3">
-                            <input onChange = {this.handleSalePriceChange} placeholder="Sale Price" required type="number" min="500" max="1000000" 
+                            <input onChange = {this.handleSalePriceChange} placeholder="Sale Price" required type="number" 
                                 name="sale_price" value={this.state.sale_price} id="sale_price" className="form-control"/>
                             <label htmlFor="sale_price">Sale Price</label>
                         </div>
-
                         <div className="mb-3">
                             <select onChange={this.handleSalesPersonChange} name="salesperson" required id="salesperson" className="form-select">
                                 <option value="">Choose a salesperson</option>
@@ -126,7 +124,7 @@ class SaleRecordForm extends React.Component {
                                 <option value="">Choose a customer</option>
                                 {this.state.customers.map(customer => {
                                     return (
-                                        <option key={customer.phone_number} value={customer.phone_number}>{customer.name}</option>
+                                        <option key={customer.address} value={customer.phone_number}>{customer.name}</option>
                                     );
                                 })}
                             </select>
@@ -136,12 +134,11 @@ class SaleRecordForm extends React.Component {
                                 <option value="">Choose an automobile</option>
                                 {this.state.automobiles.map(automobile => {
                                     return (
-                                        <option key={automobile.import_href} value={automobile.import_href}>{automobile.vin}</option>
+                                        <option key={automobile.vin} value={automobile.href}>{automobile.vin}</option>
                                     );
                                 })}
                             </select>
                         </div>
-
                         <button onClick={this.handleSubmit} className="btn btn-lg btn-primary">Create</button>
 
                     </form>
