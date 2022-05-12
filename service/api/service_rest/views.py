@@ -97,11 +97,7 @@ def api_appointments_list(request):
             return JsonResponse(
                 {"message": "Invalid employee id"}, status=404
             )
-
-        # if content["finished"] == True:
-        #     content["finished"] = True
-        # else:
-        #     content["finished"] = False
+        
 
         content["is_vip"] = AutomobileVO.objects.filter(vin=content["vin"]).exists()
         appointment = ServiceAppointment.objects.create(**content)
