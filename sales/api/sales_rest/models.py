@@ -40,7 +40,7 @@ class SaleRecord(models.Model):
         related_name = "sale_records", 
         on_delete = models.CASCADE,
     )
-    sales_person = models.ForeignKey(
+    salesperson = models.ForeignKey(
         SalesPerson,
         related_name = "sale_records",
         on_delete = models.PROTECT,
