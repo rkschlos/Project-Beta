@@ -24,7 +24,6 @@ class SaleRecordForm extends React.Component {
         const salespersonResponse = await fetch(salespersonUrl);
         if (salespersonResponse.ok) {
             const salespersonData = await salespersonResponse.json();
-            console.log("salespersonsData", salespersonData);
             this.setState({ salespersons: salespersonData.salespersons })
         }
 
@@ -52,7 +51,6 @@ class SaleRecordForm extends React.Component {
                 allCarVins.push(auto.vin)
             }
             
-            console.log("salerecordsData", salerecordsData.salerecords);
             console.log("soldCarVins", soldCarVins);
             console.log("allCarVins", allCarVins);
 
@@ -98,13 +96,12 @@ class SaleRecordForm extends React.Component {
             const newSalesrecord = await response.json();
             console.log(newSalesrecord);
 
-            const cleared = {
+            this.setState({
                 salesperson: "",
                 customer: "",
                 automobile: "",
                 sale_price: ""
-            };
-            this.setState(cleared);
+            });
         }
     }
 
