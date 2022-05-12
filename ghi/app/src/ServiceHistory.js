@@ -65,6 +65,10 @@ render() {
           </thead>
           <tbody>
             {this.state.appointments.map(appointment => {
+                const timeZone = 'PST'
+                const date = new Date(appointment.date_time).toLocaleDateString();
+                const time = new Date(appointment.date_time).toLocaleTimeString([], {timeStyle: 'short'});
+
                 let finished = ""
                 if (appointment.vin !== this.state.search) {
                     finished = "d-none"
@@ -73,7 +77,7 @@ render() {
                 <tr className={finished} key={appointment.id}>
                   <td>{ appointment.owner }</td>
                   <td>{ appointment.vin }</td>
-                  <td>{ appointment.date_time }</td>
+                  <td>{ date } { time } { timeZone }</td>
                   <td>{ appointment.technician }</td>
                   <td>{ appointment.reason }</td>
                   <td>{ appointment.is_vip ? "Yes" : "No" } </td>
