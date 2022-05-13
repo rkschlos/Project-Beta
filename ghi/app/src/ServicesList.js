@@ -57,7 +57,7 @@ render() {
         <>
         <h1></h1>
         <h1>Service Appointments</h1>
-        <table className="table table-dark table-hover caption-top">
+        <table className="table table-hover caption-top">
             <caption>*** = Customer receives VIP treatment</caption>
           <thead>
             <tr>

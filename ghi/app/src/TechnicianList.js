@@ -1,8 +1,10 @@
 function TechnicianList(props) {
     return (
         <>
+        <h1></h1>
         <h1>Technicians</h1>
-        <table className="table table-dark table-hover">
+        <table className="table table-striped caption">
+          <caption></caption>
           <thead>
             <tr>
               <th>Name</th>

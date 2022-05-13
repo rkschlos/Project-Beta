@@ -52,8 +52,8 @@ render() {
                 <label htmlFor="search"></label>
                 <div className="input-group-prepend"></div>
             </div>
-            <h3>Service History</h3>
-        <table className="table table-dark table-hover caption">
+        <h3>Service History</h3>
+        <table className="table table-striped caption">
         <caption>*** = Customer receives VIP treatment</caption>
           <thead>
             <tr>
