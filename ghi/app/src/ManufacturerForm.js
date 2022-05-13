@@ -10,17 +10,7 @@ class ManufacturerForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    //following data is from api
-    // async componentDidMount() {
-    //     const url = 'http://localhost:8100/api/manufacturers/'; //gives you same as insomnia
-    //     const response = await fetch(url);
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         console.log(data);
-    //     }
-    // }
-
-    //data nothing to do with above, from post
+   
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state}; //looks like lines 6-10 populated
@@ -55,10 +45,6 @@ class ManufacturerForm extends React.Component {
 
     //render is where you use jsx
     render() {
-        // let dropdownClasses = "form-select d-none";
-        // if (this.state.bins.length > 0) {
-        //     dropdownClasses = 'form-select';
-        // }
 
         return (
             <div className="row">

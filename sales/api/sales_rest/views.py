@@ -90,7 +90,6 @@ def api_salerecords(request):
             encoder = SaleRecordEncoder,
         )
     else: #Post
-        # this is getting new post string and turning it into a dictionary named content
         content = json.loads(request.body)
         try:
             #to get the automobile property, get object with matching import_href, set that to automobile
@@ -102,9 +101,7 @@ def api_salerecords(request):
                 {"message": "Invalid automobile id"}
             )
         try: 
-            #to get the salesperson, property, get object with matching employee number that was in post
             salesperson = SalesPerson.objects.get(employee_number = content["salesperson"])
-            #set key "salesperson" to the value salesperson from above
             content["salesperson"] = salesperson
         except SalesPerson.DoesNotExist:
             return JsonResponse(

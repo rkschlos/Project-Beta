@@ -10,7 +10,7 @@ Team:
 
 The sales, services and inventory are microservices and bounded contexts. When getting data from inventory, we made sure to use value object models as to not change the state of the models in the inventory. This treatment of inventory allowed us to keep our usage of the data from modifying the inventory. It helped keep our microservices separate. 
 
-Rachael's excalidraw link: https://excalidraw.com/#json=0lkfsWRtgn7HR_nUbqxs2,klnPDwoYJuN6PLbokQFuuA
+Rachael's excalidraw link: https://excalidraw.com/#json=HxQW4w8S5Op8hvaMrGfgl,FgaOb_z5531qos_eM1W4UQ
 
 Allisha - DDD:
 

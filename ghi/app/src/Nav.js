@@ -72,7 +72,7 @@ function Nav() {
               <NavLink className="text-dark nav-link" to="/salerecords/new">Add a Sale</NavLink>
               </a>
               <a className="dropdown-item" href="#">
-              <NavLink className="text-dark nav-link" to="/salespersons/history">Sale History</NavLink>
+              <NavLink className="text-dark nav-link" to="/salespersons/history">Saleperson History</NavLink>
               </a>
             </div>
           </li>

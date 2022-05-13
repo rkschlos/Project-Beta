@@ -38,7 +38,7 @@ class CustomerForm extends React.Component {
                 name: "", 
                 address: "",
                 phone_number:"",
-                //don't reset shoe_bins array - different
+                //don't reset array - different
             };
             this.setState(cleared);
         }
@@ -61,10 +61,6 @@ class CustomerForm extends React.Component {
    
     //render is where you use jsx
     render() {
-        // let dropdownClasses = "form-select d-none";
-        // if (this.state.bins.length > 0) {
-        //     dropdownClasses = 'form-select';
-        // }
         return (
             <div className="row">
                 <div className="offset-3 col-6">

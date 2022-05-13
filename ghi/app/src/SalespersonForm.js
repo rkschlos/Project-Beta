@@ -50,14 +50,9 @@ class SalespersonForm extends React.Component {
         const value = event.target.value;
         this.setState({ employee_number:value });
     }
-   
-   
+    
     //render is where you use jsx
     render() {
-        // let dropdownClasses = "form-select d-none";
-        // if (this.state.bins.length > 0) {
-        //     dropdownClasses = 'form-select';
-        // }
         return (
             <div className="row">
                 <div className="offset-3 col-6">
