@@ -34,6 +34,7 @@ class SalespersonHistory extends React.Component {
         const value = parseInt(event.target.value);
         this.setState({ salesperson:value })
     }
+    
 
 
     render () {
@@ -42,7 +43,7 @@ class SalespersonHistory extends React.Component {
            
                     <h1>Find sales history</h1>
                     <div className="mb-3">
-                    <select onChange={this.handleChange} name="salesperson" required id="salesperson" className="form-select">
+                    <select onChange={this.handleChange} value={this.state.salesperson} name="salesperson" required id="salesperson" className="form-select">
                         <option value="">Choose a salesperson to see sale history</option>
                         {this.state.salespersons.map(salesperson => {
                             return (
@@ -70,7 +71,7 @@ class SalespersonHistory extends React.Component {
                                         <td>{ salerecord.salesperson.name }</td>
                                         <td>{ salerecord.customer.name }</td>
                                         <td>{ salerecord.automobile.vin }</td>
-                                        <td>{ salerecord.sale_price }</td>
+                                        <td>${ salerecord.sale_price }</td>
                                     </tr>
                                 );
                             }

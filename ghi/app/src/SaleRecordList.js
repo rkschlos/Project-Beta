@@ -1,3 +1,5 @@
+
+
 function SaleRecordList(props) {
     return (
         <table className="table table-warning table-hover">
@@ -18,7 +20,7 @@ function SaleRecordList(props) {
                   <td>{ salerecord.salesperson.employee_number }</td>
                   <td>{ salerecord.customer.name }</td>
                   <td>{ salerecord.automobile.vin }</td>
-                  <td>{ salerecord.sale_price }</td>
+                  <td>${ salerecord.sale_price }</td>
                 </tr>
               );
             })}
