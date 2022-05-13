@@ -53,6 +53,7 @@ class ModelForm extends React.Component {
                 //don't reset shoe_bins array - different
             };
             this.setState(cleared);
+            window.location.reload();
         }
     }
 

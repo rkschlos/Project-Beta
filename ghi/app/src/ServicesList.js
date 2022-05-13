@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class ServicesList extends React.Component {
     constructor(props) {
       super(props);
@@ -73,10 +74,9 @@ render() {
           </thead>
           <tbody>
             {this.state.appointments.map(appointment => {
-                const timeZone = 'PST'
                 const date = new Date(appointment.date_time).toLocaleDateString();
                 const time = new Date(appointment.date_time).toLocaleTimeString([], {timeStyle: 'short'});
-
+                
                 let finished = ''
                 if (appointment.finished === true) {
                     finished = 'd-none'
@@ -86,7 +86,7 @@ render() {
                   <td>{ appointment.is_vip ? "***" : "" } </td>
                   <td>{ appointment.owner }</td>
                   <td>{ appointment.vin }</td>
-                  <td>{ date } { time } { timeZone }</td>
+                  <td>{ date } { time }</td>
                   <td>{ appointment.technician }</td>
                   <td>{ appointment.reason }</td>
                   <td><button onClick={()=>this.handleCancel(appointment.id)} to="" className="btn btn-outline-danger">Cancel</button></td>

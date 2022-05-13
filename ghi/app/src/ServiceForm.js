@@ -59,6 +59,7 @@ class ServiceForm extends React.Component {
         technician: '',
         reason: '',
       });
+      window.location.reload();
     }
   }
 

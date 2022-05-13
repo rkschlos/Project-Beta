@@ -53,7 +53,7 @@ render() {
                 <div className="input-group-prepend"></div>
             </div>
         <h3>Service History</h3>
-        <table className="table table-striped caption">
+        <table className="table table-hover caption">
         <caption>*** = Customer receives VIP treatment</caption>
           <thead>
             <tr>
@@ -67,7 +67,6 @@ render() {
           </thead>
           <tbody>
             {this.state.appointments.map(appointment => {
-                const timeZone = 'PST'
                 const date = new Date(appointment.date_time).toLocaleDateString();
                 const time = new Date(appointment.date_time).toLocaleTimeString([], {timeStyle: 'short'});
 
@@ -80,7 +79,7 @@ render() {
                   <td>{ appointment.is_vip ? "***" : "" } </td>
                   <td>{ appointment.owner }</td>
                   <td>{ appointment.vin }</td>
-                  <td>{ date } { time } { timeZone }</td>
+                  <td>{ date } { time }</td>
                   <td>{ appointment.technician }</td>
                   <td>{ appointment.reason }</td>
                 </tr>
