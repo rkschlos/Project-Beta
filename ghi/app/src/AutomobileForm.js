@@ -102,7 +102,7 @@ class AutomobileForm extends React.Component {
                   <option value="">Choose a make/model</option>
                   {this.state.models.map(model => {
                     return (
-                      <option key={model.href} value={model.id}>Make: {model.manufacturer.name} Model: {model.name}</option>
+                      <option key={model.href} value={model.id}>Make: {model.manufacturer.name};  Model: {model.name}</option>
                     )
                   })}
                 </select>

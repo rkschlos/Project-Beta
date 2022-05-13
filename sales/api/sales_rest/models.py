@@ -38,7 +38,7 @@ class SaleRecord(models.Model):
     automobile = models.ForeignKey(
         AutomobileVO, 
         related_name = "sale_records", 
-        on_delete = models.CASCADE,
+        on_delete = models.PROTECT,
     )
     salesperson = models.ForeignKey(
         SalesPerson,

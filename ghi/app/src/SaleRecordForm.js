@@ -97,10 +97,10 @@ class SaleRecordForm extends React.Component {
             console.log(newSalesrecord);
 
             this.setState({
-                salesperson: "",
-                customer: "",
-                automobile: "",
-                sale_price: ""
+                salesperson:'',
+                customer: '',
+                automobile: '',
+                sale_price: '',
             });
         }
     }
@@ -139,7 +139,7 @@ class SaleRecordForm extends React.Component {
                             <label htmlFor="sale_price">Sale Price</label>
                         </div>
                         <div className="mb-3">
-                            <select onChange={this.handleSalesPersonChange} name="salesperson" required id="salesperson" className="form-select">
+                            <select onChange={this.handleSalesPersonChange} value={this.state.salesperson} name="salesperson" required id="salesperson" className="form-select">
                                 <option value="">Choose a salesperson</option>
                                 {this.state.salespersons.map(salesperson => {
                                     return (
@@ -149,7 +149,7 @@ class SaleRecordForm extends React.Component {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <select onChange={this.handleCustomerChange} name="customer" required id="customer" className="form-select">
+                            <select onChange={this.handleCustomerChange} value={this.state.customer} name="customer" required id="customer" className="form-select">
                                 <option value="">Choose a customer</option>
                                 {this.state.customers.map(customer => {
                                     return (
@@ -159,7 +159,7 @@ class SaleRecordForm extends React.Component {
                             </select>
                         </div>            
                         <div className="mb-3">
-                            <select onChange={this.handleAutomobileChange} name="automobile" required id="automobile" className="form-select">
+                            <select onChange={this.handleAutomobileChange} value={this.state.automobile} name="automobile" required id="automobile" className="form-select">
                                 <option value="">Choose an automobile</option>
                                 {this.state.automobiles.map(automobile => {
                                     return (
