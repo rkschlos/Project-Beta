@@ -34,6 +34,7 @@ class TechnicianForm extends React.Component {
                 name: '', 
                 employee_number: '',
             });
+            window.location.reload();
         }
     }
 

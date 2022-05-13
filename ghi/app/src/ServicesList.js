@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class ServicesList extends React.Component {
     constructor(props) {
       super(props);
@@ -75,7 +76,7 @@ render() {
             {this.state.appointments.map(appointment => {
                 const timeZone = 'PST'
                 const date = new Date(appointment.date_time).toLocaleDateString();
-                const time = new Date(appointment.date_time).toLocaleTimeString([], {timeStyle: 'short'});
+                const time = new Date(appointment.date_time).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles'});
 
                 let finished = ''
                 if (appointment.finished === true) {

@@ -43,6 +43,7 @@ class ManufacturerForm extends React.Component {
                 name: "", 
                 //don't reset shoe_bins array - different
             });
+            window.location.reload();
         }
     }
 
