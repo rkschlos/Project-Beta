@@ -7,7 +7,7 @@ Team:
 
 ## Design
 
-The inventory is the aggregate root. The sales and services are microservices. When getting data from inventory, we made sure to use value object models as to not change the state of the models in the inventory. This treatment of inventory allowed us to keep our usage of the data from modifying the inventory. It helped keep our microservices separate. 
+The sales, services and inventory are microservices and bounded contexts. When getting data from inventory, we made sure to use value object models as to not change the state of the models in the inventory. This treatment of inventory allowed us to keep our usage of the data from modifying the inventory. It helped keep our microservices separate. 
 
 ## Service microservice
 
@@ -17,3 +17,11 @@ There are 3 models that make up the service microservice. I made a ServiceAppoin
 
 Explain your models and integration with the inventory
 microservice, here.
+
+My microservice, sales has 4 models. SalesPerson, Customer, SaleRecord and AutomobileVO. AutomobileVO object represents the integration point with the inventory microservice. Because each microservice in this project is a bounded context, my microservice does not “own” or have stewardship over the Inventory/Automobile data. In order to respect this boundary and make sure the Inventory/Automobile data is not mutable within the sales context, an AutomobileVO value object needed to be made. It accesses the data from the Automobile inventory in the Inventory microservice via polling, but has no way to change it. 
+
+The models of SalesPerson and Customer are pretty straightforward, with fields like “name” “employee-number” or “address” as properties. 
+
+The SalesRecord model was a bit more complex, because it had 3 foreign key relationships. The first was to customer, a one-to-many relationship because a sales record can only have one customer, but a customer can have have many sales records. The second foreign key property was Employee, and it is also one-to- many for the same reasons as the customer. The AutomobileVO relationship was a bit trickier for me to decide on, but I ultimately thought that perhaps the same vehicle could be sold more than once, and so I also decided it was a one-to-many relationship as well. I set all of these to cascade=protect, because I did not want the referenced object to get deleted if the sale record was deleted. The SalesRecord also contained the property of sale price. 
+
+This set up allowed for both my partner and I to use data from the Inventory service cleanly, without mutating it in anyway, and it helped keep our microservices from influencing each other in an unintended way. 
