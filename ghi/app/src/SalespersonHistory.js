@@ -34,6 +34,7 @@ class SalespersonHistory extends React.Component {
         const value = parseInt(event.target.value);
         this.setState({ salesperson:value })
     }
+
     
 
 
@@ -64,7 +65,6 @@ class SalespersonHistory extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.salerecords.map(salerecord => {
-                            debugger;
                             if (salerecord.salesperson.employee_number === this.state.salesperson) {
                                 return (
                                     <tr key = {salerecord.id}>

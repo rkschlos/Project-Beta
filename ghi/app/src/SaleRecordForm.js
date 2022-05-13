@@ -19,60 +19,40 @@ class SaleRecordForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
+    async getSaleRecordDataUpdate() {
+        
+            const salespersonUrl = 'http://localhost:8090/api/salespersons/';
+            const salespersonResponse = await fetch(salespersonUrl);
+            if (salespersonResponse.ok) {
+                const salespersonData = await salespersonResponse.json();
+                this.setState({ salespersons: salespersonData.salespersons })
+            }
+    
+            const customersUrl = 'http://localhost:8090/api/customers/';
+            const customersResponse = await fetch(customersUrl);
+            if (customersResponse.ok) {
+                const customersData = await customersResponse.json();
+                console.log("customersData", customersData);
+                this.setState({ customers: customersData.customers })
+            }
+    
+            const salerecordsUrl = 'http://localhost:8090/api/salerecords/';
+            const automobilesUrl = 'http://localhost:8100/api/automobiles/';
+            const salerecordsResponse = await fetch(salerecordsUrl);
+            const automobilesResponse = await fetch(automobilesUrl);
+            if (salerecordsResponse.ok && automobilesResponse.ok) {
+                const salerecordsData = await salerecordsResponse.json();
+                const automobilesData= await automobilesResponse.json();
+                //filtering which cars are not in the sale records
+                const soldCarVins = salerecordsData.salerecords.map(record => record.automobile.vin);
+                const unsoldCars = automobilesData.autos.filter(auto => !soldCarVins.includes(auto.vin));
+                this.setState({ automobiles: unsoldCars })   
+            }
+        }
+
     async componentDidMount() {
-        const salespersonUrl = 'http://localhost:8090/api/salespersons/';
-        const salespersonResponse = await fetch(salespersonUrl);
-        if (salespersonResponse.ok) {
-            const salespersonData = await salespersonResponse.json();
-            this.setState({ salespersons: salespersonData.salespersons })
-        }
-
-        const customersUrl = 'http://localhost:8090/api/customers/';
-        const customersResponse = await fetch(customersUrl);
-        if (customersResponse.ok) {
-            const customersData = await customersResponse.json();
-            console.log("customersData", customersData);
-            this.setState({ customers: customersData.customers })
-        }
-
-        const salerecordsUrl = 'http://localhost:8090/api/salerecords/';
-        const automobilesUrl = 'http://localhost:8100/api/automobiles/';
-        const salerecordsResponse = await fetch(salerecordsUrl);
-        const automobilesResponse = await fetch(automobilesUrl);
-        if (salerecordsResponse.ok && automobilesResponse.ok) {
-            const salerecordsData = await salerecordsResponse.json();
-            const automobilesData= await automobilesResponse.json();
-            const soldCarVins = [];
-            for (const record of salerecordsData.salerecords) {
-                soldCarVins.push(record.automobile.vin)
-            }
-            const allCarVins = [];
-            for (const auto of automobilesData.autos) {
-                allCarVins.push(auto.vin)
-            }
-            
-            console.log("soldCarVins", soldCarVins);
-            console.log("allCarVins", allCarVins);
-
-            const unsoldCarVins = [];
-            for (const vin of allCarVins) {
-                if (!soldCarVins.includes(vin)) {
-                    unsoldCarVins.push(vin)
-                }
-            }
-            const unsoldCars = [];
-            for (const auto of automobilesData.autos) {
-                if (!soldCarVins.includes(auto.vin )) {
-                    unsoldCars.push(auto)
-                }
-            }
-
-            console.log("unsoldCars", unsoldCars)
-            this.setState({ automobiles: unsoldCars })   
-        }
-        
-       
-        
+        this.getSaleRecordDataUpdate()
+                   
     }
 
     async handleSubmit(event) {
@@ -102,6 +82,8 @@ class SaleRecordForm extends React.Component {
                 automobile: '',
                 sale_price: '',
             });
+
+            this.getSaleRecordDataUpdate()
         }
     }
 
