@@ -76,8 +76,8 @@ render() {
             {this.state.appointments.map(appointment => {
                 const timeZone = 'PST'
                 const date = new Date(appointment.date_time).toLocaleDateString();
-                const time = new Date(appointment.date_time).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles'});
-
+                const time = new Date(appointment.date_time).toLocaleTimeString([], {timeStyle: 'short'});
+                
                 let finished = ''
                 if (appointment.finished === true) {
                     finished = 'd-none'

@@ -53,7 +53,7 @@ render() {
                 <div className="input-group-prepend"></div>
             </div>
         <h3>Service History</h3>
-        <table className="table table-striped caption">
+        <table className="table table-hover caption">
         <caption>*** = Customer receives VIP treatment</caption>
           <thead>
             <tr>

@@ -76,6 +76,9 @@ function Nav() {
               </a>
             </div>
           </li>
+            <li className="nav-item">
+            <NavLink className="nav-link" to="/service">Service Appointments</NavLink>
+            </li>
           </ul>
         </div>
       </div>
