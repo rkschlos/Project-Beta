@@ -74,6 +74,46 @@ function Nav() {
             <NavLink className="nav-link" to="/service">Service Appointments</NavLink>
           </li>
           <li className="nav-item">
+              <NavLink className="nav-link" to="/models">Models</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/models/new">Add Model</NavLink>
+          </li>
+          <li>
+              <NavLink className="nav-link" to="/automobiles">Automobiles</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/automobiles/new">Add Automobile</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/technicians">Technicians</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/technicians/new">Enter a Technician</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/service">Service Appointments</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/service/new">Schedule Service</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/salespersons">Add a Salesperson</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/salespersons/history">Salesperson History</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/customers">Add a Customer</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/service/history">Service History</NavLink>
+          </li>
+          <li>
+              <NavLink className="nav-link" to="/salerecords">Sale Records</NavLink>
+          </li>
+          <li>
+              <NavLink className="nav-link" to="/salerecords/new">Add a Sale</NavLink>
           </li>
           </ul>
         </div>

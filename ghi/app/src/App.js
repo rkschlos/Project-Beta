@@ -15,6 +15,8 @@ import ServicesList from './ServicesList';
 import CustomerForm from './CustomerForm';
 import ServiceHistory from './ServiceHistory';
 import SaleRecordForm from './SaleRecordForm';
+import SaleRecordList from './SaleRecordList';
+import SalespersonHistory from './SalespersonHistory';
 
 function App(props) {
   if (props.manufacturers === undefined) {
@@ -40,6 +42,7 @@ function App(props) {
           </Route>
           <Route path="salespersons">
             <Route index element= {<SalespersonForm />} />
+            <Route path="history" element ={<SalespersonHistory />} />
           </Route>
           <Route path="technicians">
             <Route index element={<TechnicianList technicians={props.technicians} />} />
@@ -54,7 +57,8 @@ function App(props) {
             <Route index element={<CustomerForm />} />
           </Route>
           <Route path="salerecords">
-            <Route index element= {<SaleRecordForm />} />
+            <Route index element= {<SaleRecordList salerecords={props.salerecords} />} />
+            <Route path="new" element={<SaleRecordForm /> } />
           </Route>
         </Routes>
       </div>
