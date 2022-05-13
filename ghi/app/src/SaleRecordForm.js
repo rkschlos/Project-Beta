@@ -97,10 +97,10 @@ class SaleRecordForm extends React.Component {
             console.log(newSalesrecord);
 
             this.setState({
-                salesperson: "",
-                customer: "",
-                automobile: "",
-                sale_price: ""
+                salesperson:'',
+                customer: '',
+                automobile: '',
+                sale_price: '',
             });
         }
     }
